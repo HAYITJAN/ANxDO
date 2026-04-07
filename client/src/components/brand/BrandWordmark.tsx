@@ -1,8 +1,8 @@
 /**
  * ANDO — matnli belgida × "vs" (anime ↔ dorama) ni ifodalaydi.
- * Ikonkada — somon qaroqlar / jolly-roger (public/brand/jolly-roger.svg).
+ * Ikonkada — jolly-roger (public/brand/jolly-roger.svg).
+ * Eslatma: next/image SVG bilan ba’zan ishlamaydi; oddiy <img> ishlatiladi.
  */
-import Image from "next/image";
 export function BrandWordmark({
   className = "",
   size = "md",
@@ -37,13 +37,15 @@ export function BrandIcon({ className = "" }: { className?: string }) {
       className={`relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-500 to-violet-600 shadow-lg shadow-fuchsia-900/40 sm:h-11 sm:w-11 ${className}`}
       aria-hidden
     >
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element -- SVG static asset; Image SVG da prod-da buziladi */}
+      <img
         src="/brand/jolly-roger.svg"
         alt=""
         width={44}
         height={44}
         className="h-[82%] w-[82%] object-contain drop-shadow-sm"
-        priority
+        decoding="async"
+        fetchPriority="high"
       />
     </span>
   );
