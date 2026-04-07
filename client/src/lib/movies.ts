@@ -1,5 +1,4 @@
-const apiBase =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://localhost:5000/api";
+import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 
 export function coerceGenres(genre: unknown): string[] {
   if (genre == null) return [];

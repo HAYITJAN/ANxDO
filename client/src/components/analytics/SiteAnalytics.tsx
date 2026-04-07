@@ -1,11 +1,8 @@
 "use client";
 
+import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-
-const apiBase =
-  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "")) ||
-  "http://localhost:5000/api";
 
 /**
  * Har bir sahifa ochilganda backendga kunlik "sahifa ko‘rishi" sanashini yuboradi.

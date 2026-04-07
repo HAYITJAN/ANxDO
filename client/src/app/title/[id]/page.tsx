@@ -1,5 +1,6 @@
 import { MoreLikeThis } from "@/components/title/MoreLikeThis";
 import { coerceGenres, fetchMovies } from "@/lib/movies";
+import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { pageShell } from "@/lib/pageShell";
 import { pickRelatedMovies } from "@/lib/relatedMovies";
 import dynamic from "next/dynamic";
@@ -15,9 +16,6 @@ const TitleWatchClient = dynamic(
   () => import("@/components/watch/TitleWatchClient").then((m) => m.TitleWatchClient),
   { ssr: false, loading: () => <p className="text-sm text-zinc-500">Pleyer yuklanmoqda…</p> }
 );
-
-const apiBase =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://localhost:5000/api";
 
 type MovieDetail = {
   _id: string;

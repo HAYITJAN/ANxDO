@@ -1,5 +1,4 @@
-const apiBase =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://localhost:5000/api";
+import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 
 /** Pastki lenta «reklama» matni bosilganda ochiladigan manzil (mailto:, https, Telegram va hokazo). */
 export const AD_INQUIRY_HREF =

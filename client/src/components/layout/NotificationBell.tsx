@@ -3,12 +3,10 @@
 import { useLocale } from "@/components/i18n/LocaleContext";
 import { getLastNotificationsViewedAt, hasUnreadNewReleases, markNotificationsViewed } from "@/lib/notifications";
 import type { MovieListItem } from "@/lib/movies";
+import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-
-const apiBase =
-  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") || "http://localhost:5000/api";
 
 export function NotificationBell() {
   const { t } = useLocale();

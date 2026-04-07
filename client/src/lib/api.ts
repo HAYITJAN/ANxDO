@@ -1,6 +1,6 @@
-const raw = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+import { publicApiBase } from "@/lib/publicApiBase";
 
-export const apiBase = raw.replace(/\/$/, "");
+export const apiBase = publicApiBase;
 
 export async function apiFetch(
   path: string,
