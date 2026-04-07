@@ -62,7 +62,7 @@ export function NotificationBell() {
   if (!token) {
     return (
       <span
-        className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.07] bg-zinc-900/50 text-zinc-500"
+        className="flex h-11 min-h-[44px] w-11 min-w-[44px] items-center justify-center rounded-xl border border-white/[0.07] bg-zinc-900/50 text-zinc-500 md:h-10 md:min-h-0 md:w-10 md:min-w-0"
         aria-hidden
         title={t("header.notifications")}
       >
@@ -82,7 +82,7 @@ export function NotificationBell() {
       <button
         type="button"
         onClick={onOpen}
-        className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.08] bg-zinc-800/80 text-zinc-100 transition hover:border-white/15 hover:bg-zinc-800"
+        className="relative flex h-11 min-h-[44px] w-11 min-w-[44px] items-center justify-center rounded-xl border border-white/[0.08] bg-zinc-800/80 text-zinc-100 transition hover:border-white/15 hover:bg-zinc-800 md:h-10 md:min-h-0 md:w-10 md:min-w-0"
         aria-expanded={open}
         aria-label={t("header.notifications")}
       >

@@ -66,40 +66,23 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/85 backdrop-blur-md">
-      <div className={`flex h-14 items-center gap-3 sm:h-16 md:gap-4 ${pageShell}`}>
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="ANDO — bosh sahifa">
+      <div
+        className={`flex flex-wrap items-center gap-x-2 gap-y-2 py-2 sm:gap-x-3 md:h-16 md:flex-nowrap md:items-center md:gap-4 md:py-0 ${pageShell}`}
+      >
+        <Link
+          href="/"
+          className="order-1 flex min-w-0 shrink-0 items-center gap-1.5 touch-manipulation sm:gap-2"
+          aria-label="ANDO — bosh sahifa"
+        >
           <BrandIcon />
-          <span className="hidden sm:inline">
-            <BrandWordmark />
-          </span>
+          <BrandWordmark />
         </Link>
 
-        <nav className="flex min-w-0 flex-1 items-center justify-start gap-x-5 overflow-x-auto py-1 pl-2 [-ms-overflow-style:none] [scrollbar-width:none] md:gap-x-7 md:pl-6 lg:gap-x-9 xl:pl-10 [&::-webkit-scrollbar]:hidden">
-          <NavLink href="/" active={isHome}>
-            {t("nav.home")}
-          </NavLink>
-          <NavLink href="/browse?type=movie" active={isMovies}>
-            {t("nav.movies")}
-          </NavLink>
-          <NavLink href="/browse?type=anime" active={isAnime}>
-            {t("nav.anime")}
-          </NavLink>
-          <NavLink href="/browse?type=dorama" active={isDoramas}>
-            {t("nav.doramas")}
-          </NavLink>
-          <NavLink href="/browse?sort=trending" active={isTrending}>
-            {t("nav.trending")}
-          </NavLink>
-          <NavLink href="/profile" active={isMyList}>
-            {t("nav.myList")}
-          </NavLink>
-        </nav>
-
-        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+        <div className="order-2 ml-auto flex shrink-0 items-center gap-1 max-[480px]:gap-0.5 sm:gap-2 md:order-3 md:ml-0">
           <LanguageSwitcher />
           <Link
             href="/browse"
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/[0.07] bg-transparent text-zinc-200 transition hover:border-white/15 hover:bg-white/[0.06] hover:text-white"
+            className="flex h-11 min-h-[44px] w-11 min-w-[44px] items-center justify-center rounded-xl border border-white/[0.07] bg-transparent text-zinc-200 transition hover:border-white/15 hover:bg-white/[0.06] hover:text-white md:h-10 md:min-h-0 md:w-10 md:min-w-0"
             aria-label={t("header.search")}
           >
             <svg className="h-[22px] w-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden>
@@ -112,11 +95,11 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
-              className="flex h-10 items-center gap-1 rounded-xl border border-white/[0.07] bg-zinc-900/40 pl-1 pr-1.5 text-zinc-200 transition hover:border-white/12 hover:bg-zinc-900/70"
+              className="flex h-11 min-h-[44px] items-center gap-1 rounded-xl border border-white/[0.07] bg-zinc-900/40 pl-1 pr-1.5 text-zinc-200 transition hover:border-white/12 hover:bg-zinc-900/70 md:h-10 md:min-h-0"
               aria-expanded={menuOpen}
               aria-haspopup="true"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-700 via-fuchsia-800 to-purple-950 text-sm font-semibold text-white shadow-inner shadow-black/30 ring-1 ring-white/15">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-700 via-fuchsia-800 to-purple-950 text-sm font-semibold text-white shadow-inner shadow-black/30 ring-1 ring-white/15 md:h-8 md:w-8">
                 {token && user ? (
                   (user.name || user.email || "?").slice(0, 1).toUpperCase()
                 ) : (
@@ -177,6 +160,27 @@ export function SiteHeader() {
             ) : null}
           </div>
         </div>
+
+        <nav className="order-3 flex min-h-[44px] w-full min-w-0 basis-full items-center gap-x-5 overflow-x-auto border-t border-white/[0.06] py-2 pl-0 [-ms-overflow-style:none] [scrollbar-width:none] md:order-2 md:min-h-0 md:basis-auto md:flex-1 md:gap-x-7 md:border-t-0 md:py-1 md:pl-6 lg:gap-x-9 xl:pl-10 [&::-webkit-scrollbar]:hidden">
+          <NavLink href="/" active={isHome}>
+            {t("nav.home")}
+          </NavLink>
+          <NavLink href="/browse?type=movie" active={isMovies}>
+            {t("nav.movies")}
+          </NavLink>
+          <NavLink href="/browse?type=anime" active={isAnime}>
+            {t("nav.anime")}
+          </NavLink>
+          <NavLink href="/browse?type=dorama" active={isDoramas}>
+            {t("nav.doramas")}
+          </NavLink>
+          <NavLink href="/browse?sort=trending" active={isTrending}>
+            {t("nav.trending")}
+          </NavLink>
+          <NavLink href="/profile" active={isMyList}>
+            {t("nav.myList")}
+          </NavLink>
+        </nav>
       </div>
     </header>
   );
