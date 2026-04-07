@@ -4,6 +4,11 @@ const movieSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, default: '' },
+    descriptionI18n: {
+      uz: { type: String, default: '' },
+      ru: { type: String, default: '' },
+      en: { type: String, default: '' },
+    },
     genre: [{ type: String, trim: true }],
     year: { type: Number },
     /** O‘rtacha foydalanuvchi bahosi (1–10), sharhlardan hisoblanadi */
@@ -37,6 +42,12 @@ const movieSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-movieSchema.index({ title: 'text', description: 'text' });
+movieSchema.index({
+  title: 'text',
+  description: 'text',
+  'descriptionI18n.uz': 'text',
+  'descriptionI18n.ru': 'text',
+  'descriptionI18n.en': 'text',
+});
 
 module.exports = mongoose.model('Movie', movieSchema);

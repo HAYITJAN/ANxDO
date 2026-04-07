@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/components/i18n/LocaleContext";
+import { pickMovieDescription } from "@/lib/movieDescription";
 import type { MovieListItem } from "@/lib/movies";
 import { pageShell } from "@/lib/pageShell";
 import { isInWatchlist, toggleWatchlist } from "@/lib/watchlist";
@@ -18,7 +19,7 @@ export function HomeHero({
   movies: MovieListItem[];
   reserveBottomAdBar?: boolean;
 }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const router = useRouter();
   const token = useAuthStore((s) => s.token);
   const [idx, setIdx] = useState(0);
@@ -65,6 +66,8 @@ export function HomeHero({
     setToast(now ? t("hero.myListAdded") : t("hero.myListRemoved"));
     window.setTimeout(() => setToast(null), 2200);
   }
+
+  const description = pickMovieDescription(movie, locale);
 
   return (
     <section className="relative w-full overflow-hidden bg-black">
@@ -155,9 +158,9 @@ export function HomeHero({
             ))}
           </div>
 
-          {movie.description ? (
+          {description ? (
             <p className="mt-6 max-w-3xl text-base leading-relaxed text-zinc-400 sm:text-lg line-clamp-3 md:line-clamp-4 xl:max-w-4xl">
-              {movie.description}
+              {description}
             </p>
           ) : null}
 

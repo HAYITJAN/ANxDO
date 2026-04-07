@@ -15,6 +15,7 @@ type LoadedMovie = {
   _id: string;
   title: string;
   description?: string;
+  descriptionI18n?: { uz?: string; ru?: string; en?: string };
   genre?: string[];
   year?: number;
   posterUrl?: string;
@@ -62,6 +63,16 @@ export function MovieForm({ movieId }: { movieId?: string }) {
   const [shortEditUrl, setShortEditUrl] = useState("");
   const [shortUploading, setShortUploading] = useState(false);
   const shortFileRef = useRef<HTMLInputElement>(null);
+
+  function readDescriptions(fd: FormData) {
+    const uz = ((fd.get("descriptionUz") as string) || "").trim();
+    const ru = ((fd.get("descriptionRu") as string) || "").trim();
+    const en = ((fd.get("descriptionEn") as string) || "").trim();
+    return {
+      description: uz || ru || en || "",
+      descriptionI18n: { uz, ru, en },
+    };
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -184,9 +195,11 @@ export function MovieForm({ movieId }: { movieId?: string }) {
         setError("Kamida bitta til uchun saytdagi video yoki tashqi tomosha havolasi kiriting");
         return;
       }
+      const desc = readDescriptions(fd);
       const body = {
         title,
-        description: (fd.get("description") as string) || "",
+        description: desc.description,
+        descriptionI18n: desc.descriptionI18n,
         genre,
         year: fd.get("year") ? Number(fd.get("year")) : undefined,
         posterUrl: (fd.get("posterUrl") as string) || "",
@@ -223,9 +236,11 @@ export function MovieForm({ movieId }: { movieId?: string }) {
     }
 
     if (isEdit && movieId) {
+      const desc = readDescriptions(fd);
       const movieBody = {
         title,
-        description: (fd.get("description") as string) || "",
+        description: desc.description,
+        descriptionI18n: desc.descriptionI18n,
         genre,
         year: fd.get("year") ? Number(fd.get("year")) : undefined,
         posterUrl: (fd.get("posterUrl") as string) || "",
@@ -275,9 +290,11 @@ export function MovieForm({ movieId }: { movieId?: string }) {
       return;
     }
 
+    const desc = readDescriptions(fd);
     const movieBody = {
       title,
-      description: (fd.get("description") as string) || "",
+      description: desc.description,
+      descriptionI18n: desc.descriptionI18n,
       genre,
       year: fd.get("year") ? Number(fd.get("year")) : undefined,
       posterUrl: (fd.get("posterUrl") as string) || "",
@@ -381,14 +398,40 @@ export function MovieForm({ movieId }: { movieId?: string }) {
 
         <label className="block">
           <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Tavsif
+            Tavsif (UZ)
           </span>
           <textarea
-            name="description"
+            name="descriptionUz"
             rows={4}
-            defaultValue={loaded?.description ?? ""}
+            defaultValue={loaded?.descriptionI18n?.uz ?? loaded?.description ?? ""}
             className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
-            placeholder="Qisqa syujet..."
+            placeholder="Qisqa syujet (o‘zbekcha)..."
+          />
+        </label>
+
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">
+            Tavsif (RU)
+          </span>
+          <textarea
+            name="descriptionRu"
+            rows={4}
+            defaultValue={loaded?.descriptionI18n?.ru ?? ""}
+            className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
+            placeholder="Краткий сюжет (по-русски)..."
+          />
+        </label>
+
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">
+            Tavsif (EN)
+          </span>
+          <textarea
+            name="descriptionEn"
+            rows={4}
+            defaultValue={loaded?.descriptionI18n?.en ?? ""}
+            className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
+            placeholder="Short synopsis (English)..."
           />
         </label>
 

@@ -1,4 +1,5 @@
 import { MoreLikeThis } from "@/components/title/MoreLikeThis";
+import { MovieDescriptionBlock } from "@/components/title/MovieDescriptionBlock";
 import { coerceGenres, fetchMovies } from "@/lib/movies";
 import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { pageShell } from "@/lib/pageShell";
@@ -21,6 +22,7 @@ type MovieDetail = {
   _id: string;
   title?: string;
   description?: string;
+  descriptionI18n?: { uz?: string; ru?: string; en?: string };
   type: string;
   videoUrl?: string;
   streams?: {
@@ -229,12 +231,7 @@ export default async function TitlePage({
             </div>
           </div>
 
-          {movie.description ? (
-            <section className="mt-12 max-w-3xl border-t border-white/[0.07] pt-10">
-              <h2 className="text-lg font-semibold text-white">Synopsis</h2>
-              <p className="mt-3 text-base leading-relaxed text-zinc-400">{movie.description}</p>
-            </section>
-          ) : null}
+          <MovieDescriptionBlock movie={movie} />
 
           <div id="watch" className="mt-12 scroll-mt-28">
             <TitleWatchClient movie={movie} episodes={epList} />

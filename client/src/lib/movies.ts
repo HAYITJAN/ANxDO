@@ -15,6 +15,7 @@ export type MovieListItem = {
   _id: string;
   title: string;
   description?: string;
+  descriptionI18n?: { uz?: string; ru?: string; en?: string };
   genre?: string[];
   year?: number;
   rating?: number;

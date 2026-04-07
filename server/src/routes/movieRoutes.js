@@ -68,6 +68,9 @@ router.get('/', async (req, res) => {
         filter.$or = [
           { title: new RegExp(safe, 'i') },
           { description: new RegExp(safe, 'i') },
+          { 'descriptionI18n.uz': new RegExp(safe, 'i') },
+          { 'descriptionI18n.ru': new RegExp(safe, 'i') },
+          { 'descriptionI18n.en': new RegExp(safe, 'i') },
         ];
       }
     }
