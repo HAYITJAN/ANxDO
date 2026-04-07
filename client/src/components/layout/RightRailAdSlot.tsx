@@ -44,7 +44,7 @@ export function RightRailAdSlot() {
         ) : ads.length === 0 ? (
           <Link
             href={AD_INQUIRY_HREF}
-            className="flex flex-1 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-white/10 bg-white/[0.02] p-2 text-center transition hover:border-fuchsia-500/25 hover:bg-white/[0.04]"
+            className="flex flex-1 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-white/10 bg-white/[0.02] p-2 text-center transition hover:border-violet-500/25 hover:bg-white/[0.04]"
           >
             <span className="text-[9px] font-medium uppercase tracking-widest text-zinc-500">Reklama</span>
             <span className="text-[9px] leading-tight text-zinc-600">150×vertikal joy</span>
@@ -74,7 +74,7 @@ export function RightRailAdSlot() {
                   href={ad.linkUrl.trim()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500/50"
+                  className="block shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50"
                 >
                   {inner}
                 </a>

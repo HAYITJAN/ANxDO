@@ -22,7 +22,7 @@ export default function Error({
       <button
         type="button"
         onClick={() => reset()}
-        className="mt-8 rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-6 py-2.5 text-sm font-semibold text-white hover:brightness-110"
+        className="mt-8 rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/35 transition hover:bg-accent-hover"
       >
         Qayta urinish
       </button>

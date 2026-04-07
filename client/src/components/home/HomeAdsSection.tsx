@@ -39,7 +39,7 @@ export function HomeAdsSection({
         >
           {ads.map((ad) => {
             const inner = (
-              <div className="overflow-hidden rounded-2xl border border-white/[0.1] bg-zinc-900/50 ring-1 ring-fuchsia-500/10 shadow-lg shadow-black/40">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.1] bg-zinc-900/50 ring-1 ring-violet-500/10 shadow-lg shadow-black/40">
                 <div
                   className={`relative w-full overflow-hidden bg-zinc-950 ${
                     isFooter ? "aspect-[21/9] min-h-[140px] sm:min-h-[160px]" : "aspect-[16/10]"

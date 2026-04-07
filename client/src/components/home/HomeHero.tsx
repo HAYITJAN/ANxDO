@@ -98,7 +98,7 @@ export function HomeHero({
               type="button"
               onClick={() => setIdx(i)}
               className={`h-1.5 rounded-full transition-all ${
-                i === idx % safe.length ? "w-8 bg-fuchsia-400" : "w-1.5 bg-white/35 hover:bg-white/55"
+                i === idx % safe.length ? "w-8 bg-accent-hover" : "w-1.5 bg-white/35 hover:bg-white/55"
               }`}
               aria-label={`${i + 1}`}
             />
@@ -114,7 +114,7 @@ export function HomeHero({
         } ${pageShell}`}
       >
         {toast ? (
-          <p className="absolute left-1/2 top-24 z-30 max-w-md -translate-x-1/2 rounded-xl border border-fuchsia-500/40 bg-black/85 px-4 py-2 text-center text-sm text-violet-100 shadow-lg backdrop-blur-md">
+          <p className="absolute left-1/2 top-24 z-30 max-w-md -translate-x-1/2 rounded-xl border border-accent/45 bg-black/85 px-4 py-2 text-center text-sm text-violet-100 shadow-lg backdrop-blur-md">
             {toast}
           </p>
         ) : null}
@@ -123,9 +123,7 @@ export function HomeHero({
           <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
             <span
               className={`rounded-md px-2.5 py-1 text-[10px] font-bold tracking-normal text-white shadow-lg ${
-                movie.newRelease
-                  ? "bg-gradient-to-r from-rose-600 to-amber-500 shadow-amber-900/30"
-                  : "bg-gradient-to-r from-fuchsia-600 to-pink-600 shadow-fuchsia-900/30"
+                movie.newRelease ? "bg-amber-600 shadow-amber-950/35" : "bg-accent shadow-violet-950/35"
               }`}
             >
               {badgeLabel}
@@ -169,7 +167,7 @@ export function HomeHero({
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Link
               href={`/title/${movie._id}`}
-              className="inline-flex min-h-[50px] items-center gap-2.5 rounded-2xl bg-gradient-to-r from-rose-600 via-fuchsia-600 to-violet-700 px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-fuchsia-950/35 transition hover:brightness-110 active:scale-[0.98]"
+              className="inline-flex min-h-[50px] items-center gap-2.5 rounded-2xl bg-accent px-8 py-3 text-sm font-semibold text-white shadow-xl shadow-violet-950/40 transition hover:bg-accent-hover active:scale-[0.98] active:bg-accent-muted"
             >
               <span className="text-lg leading-none" aria-hidden>
                 ▶
@@ -181,7 +179,7 @@ export function HomeHero({
               onClick={onMyList}
               className={`inline-flex min-h-[50px] items-center gap-2 rounded-2xl border px-6 py-3 text-sm font-semibold backdrop-blur-md transition hover:bg-white/15 ${
                 inList
-                  ? "border-fuchsia-400/50 bg-fuchsia-950/40 text-fuchsia-100"
+                  ? "border-accent-hover/50 bg-accent-deep/35 text-violet-100"
                   : "border-white/20 bg-white/10 text-white"
               }`}
             >

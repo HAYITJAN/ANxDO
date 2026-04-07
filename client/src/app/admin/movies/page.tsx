@@ -52,7 +52,7 @@ export default function AdminMoviesPage() {
         </h2>
         <Link
           href="/admin/movies/new"
-          className="rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-900/20"
+          className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/35 transition hover:bg-accent-hover"
         >
           + Yangi kino
         </Link>

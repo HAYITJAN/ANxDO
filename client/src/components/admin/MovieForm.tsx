@@ -666,7 +666,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
                         value={row.externalWatchUrl}
                         onChange={(e) => setStreamRow(i, { externalWatchUrl: e.target.value })}
                         placeholder="https://..."
-                        className="w-full rounded-lg border border-fuchsia-500/20 bg-[#0c0a12] px-3 py-2.5 text-sm text-white placeholder:text-zinc-600"
+                        className="w-full rounded-lg border border-violet-500/20 bg-[#0c0a12] px-3 py-2.5 text-sm text-white placeholder:text-zinc-600"
                       />
                     </label>
                   </div>
@@ -700,8 +700,8 @@ export function MovieForm({ movieId }: { movieId?: string }) {
           />
         </label>
 
-        <div className="block rounded-xl border border-fuchsia-500/20 bg-[#0c0a12]/80 p-4">
-          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-fuchsia-200/90">
+        <div className="block rounded-xl border border-violet-500/20 bg-[#0c0a12]/80 p-4">
+          <span className="mb-2 block text-xs font-medium uppercase tracking-wide text-violet-200/90">
             Bosh sahifa: «Siz ko‘rishingiz kerak bo‘lgan filmlar» lentaligi
           </span>
           <p className="mb-3 text-[11px] leading-relaxed text-zinc-500">
@@ -734,7 +734,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
               type="button"
               disabled={!token || shortUploading}
               onClick={() => shortFileRef.current?.click()}
-              className="rounded-xl border border-fuchsia-500/40 bg-fuchsia-950/40 px-4 py-2.5 text-sm font-medium text-fuchsia-100 transition hover:bg-fuchsia-900/50 disabled:opacity-50"
+              className="rounded-xl border border-violet-500/40 bg-violet-950/40 px-4 py-2.5 text-sm font-medium text-violet-100 transition hover:bg-violet-900/50 disabled:opacity-50"
             >
               {shortUploading ? "Yuklanmoqda…" : "Kompyuterdan video yuklash"}
             </button>
@@ -789,7 +789,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-900/30 transition hover:opacity-95 disabled:opacity-50 sm:w-auto sm:px-10"
+          className="w-full rounded-xl bg-accent py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/35 transition hover:bg-accent-hover disabled:opacity-50 sm:w-auto sm:px-10"
         >
           {submitting ? "Saqlanmoqda…" : isEdit ? "O‘zgarishlarni saqlash" : "Kinoni saqlash"}
         </button>

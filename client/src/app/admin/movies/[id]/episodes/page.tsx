@@ -340,7 +340,7 @@ export default function AdminSeriesEpisodesPage() {
                       value={row.externalWatchUrl}
                       onChange={(e) => setStreamRow(i, { externalWatchUrl: e.target.value })}
                       placeholder="https://..."
-                      className="w-full rounded-lg border border-fuchsia-500/20 bg-[#07060b] px-3 py-2 text-sm text-white placeholder:text-zinc-600"
+                      className="w-full rounded-lg border border-violet-500/20 bg-[#07060b] px-3 py-2 text-sm text-white placeholder:text-zinc-600"
                     />
                   </label>
                 </div>
@@ -353,7 +353,7 @@ export default function AdminSeriesEpisodesPage() {
           <button
             type="submit"
             disabled={busy || !token}
-            className="rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
+            className="rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover disabled:opacity-50"
           >
             {busy ? "…" : editingId ? "Saqlash" : "Qo‘shish"}
           </button>

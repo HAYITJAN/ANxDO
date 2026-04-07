@@ -131,7 +131,7 @@ export function TrailerShortsFeed({ movies }: { movies: MovieListItem[] }) {
 
       <div className="mx-auto w-full max-w-md lg:max-w-lg">
         <div
-          className="snap-y snap-mandatory overflow-y-auto overscroll-y-contain rounded-2xl border border-white/10 bg-zinc-950 shadow-[0_0_40px_-10px_rgba(88,28,135,0.35)] [-ms-overflow-style:none] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-fuchsia-900/60"
+          className="snap-y snap-mandatory overflow-y-auto overscroll-y-contain rounded-2xl border border-white/10 bg-zinc-950 shadow-[0_0_40px_-10px_rgba(88,28,135,0.35)] [-ms-overflow-style:none] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-violet-900/60"
           style={{ height: railH }}
         >
           {withShorts.map((m) => {
@@ -160,7 +160,7 @@ export function TrailerShortsFeed({ movies }: { movies: MovieListItem[] }) {
                     ) : null}
                     <Link
                       href={`/title/${m._id}`}
-                      className="pointer-events-auto mt-4 inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-gradient-to-r from-rose-600 via-fuchsia-600 to-violet-700 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/40 transition hover:brightness-110"
+                      className="pointer-events-auto mt-4 inline-flex w-full max-w-sm items-center justify-center rounded-xl bg-accent py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/40 transition hover:bg-accent-hover"
                     >
                       {t("shorts.watchMovie")}
                     </Link>

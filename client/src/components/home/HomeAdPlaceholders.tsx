@@ -66,12 +66,12 @@ export function MarqueeStrip({ phrases, variant = "inset", docked }: MarqueeProp
 
   if (!isFooter) {
     return (
-      <div className="mb-5 overflow-hidden rounded-xl border border-fuchsia-500/25 bg-gradient-to-r from-black/80 via-fuchsia-950/30 to-black/80 py-3 shadow-inner shadow-fuchsia-900/20" aria-hidden>
+      <div className="mb-5 overflow-hidden rounded-xl border border-violet-500/25 bg-violet-950/20 py-3 shadow-inner shadow-violet-950/25" aria-hidden>
         <div className="flex w-max max-w-none animate-ad-marquee will-change-transform">
           {loopInset.map((p, idx) => (
             <span key={idx} className="shrink-0 px-6 text-[12px] font-medium tracking-tight text-zinc-300 sm:px-8 sm:text-sm">
               {p}
-              <span className="mx-3 inline-block text-fuchsia-500/50 sm:mx-4">·</span>
+              <span className="mx-3 inline-block text-violet-500/50 sm:mx-4">·</span>
             </span>
           ))}
         </div>
@@ -88,11 +88,8 @@ export function MarqueeStrip({ phrases, variant = "inset", docked }: MarqueeProp
           : "bg-[#050308]/95",
       ].join(" ")}
     >
-      <div className="relative w-full overflow-hidden border-b border-fuchsia-500/10 bg-black/50 py-1 sm:py-1.5">
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-violet-950/40 via-fuchsia-950/25 to-violet-950/40 motion-safe:animate-ad-shimmer bg-[length:200%_100%] opacity-60"
-          aria-hidden
-        />
+      <div className="relative w-full overflow-hidden border-b border-violet-500/15 bg-violet-950/25 py-1 sm:py-1.5">
+        <div className="pointer-events-none absolute inset-0 bg-violet-900/15" aria-hidden />
         <div
           className="relative flex w-max max-w-none animate-ad-marquee will-change-transform [perspective:640px] [transform-style:preserve-3d]"
         >
@@ -102,7 +99,7 @@ export function MarqueeStrip({ phrases, variant = "inset", docked }: MarqueeProp
                 href={AD_INQUIRY_HREF}
                 tabIndex={idx === 0 ? 0 : -1}
                 aria-label={idx === 0 ? "Reklama joylashtirish bo‘yicha bog‘lanish" : undefined}
-                className="relative inline-flex cursor-pointer items-center gap-2 outline-none ring-fuchsia-400/50 transition hover:opacity-95 focus-visible:rounded-sm focus-visible:ring-2 motion-safe:animate-ad-3d-marquee-text motion-reduce:animate-none"
+                className="relative inline-flex cursor-pointer items-center gap-2 outline-none ring-violet-400/45 transition hover:opacity-95 focus-visible:rounded-sm focus-visible:ring-2 motion-safe:animate-ad-3d-marquee-text motion-reduce:animate-none"
                 style={{ animationDelay: `${(idx % 8) * 75}ms` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element -- statik lokal SVG */}
@@ -115,14 +112,14 @@ export function MarqueeStrip({ phrases, variant = "inset", docked }: MarqueeProp
                   aria-hidden
                 />
                 <span
-                  className="inline-block bg-gradient-to-b from-white via-fuchsia-50 to-violet-500 bg-[length:220%_160%] bg-clip-text text-[11px] font-black uppercase leading-tight tracking-[0.14em] text-transparent motion-safe:animate-ad-3d-marquee-shine motion-reduce:animate-none sm:text-xs sm:tracking-[0.17em]"
+                  className="inline-block text-[11px] font-black uppercase leading-tight tracking-[0.14em] text-violet-100 motion-safe:animate-ad-3d-marquee-text motion-reduce:animate-none sm:text-xs sm:tracking-[0.17em]"
                   style={{ animationDelay: `${(idx % 8) * 75 + 120}ms` }}
                 >
                   {p}
                 </span>
               </AdInquiryLink>
               <span
-                className="mx-3 inline-block text-[12px] font-black text-fuchsia-200/95 sm:mx-4 sm:text-sm"
+                className="mx-3 inline-block text-[12px] font-black text-violet-300/95 sm:mx-4 sm:text-sm"
                 style={{
                   textShadow:
                     "0 1px 0 #c084fc, 0 2px 0 #9333ea, 0 3px 0 #6b21a8, 0 4px 12px rgba(0,0,0,0.88)",
@@ -167,11 +164,8 @@ export function HomeAdPlaceholders({ placement = "default", className, docked }:
   const phraseIndex = i % AD_PLACEHOLDER_PHRASES.length;
   const cards = (
     <div className="w-full">
-      <div className="group relative min-w-0 overflow-hidden rounded-2xl bg-zinc-950/90 shadow-lg shadow-black/40 ring-1 ring-fuchsia-500/20">
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-fuchsia-600/12 via-violet-600/18 to-fuchsia-600/12 bg-[length:200%_100%] animate-ad-shimmer"
-          aria-hidden
-        />
+      <div className="group relative min-w-0 overflow-hidden rounded-2xl bg-zinc-950/90 shadow-lg shadow-black/40 ring-1 ring-violet-500/25">
+        <div className="pointer-events-none absolute inset-0 bg-violet-600/8" aria-hidden />
         <div className="relative flex min-h-[88px] flex-col items-center justify-center px-4 py-5">
           <p
             key={phraseIndex}

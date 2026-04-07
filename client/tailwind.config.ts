@@ -14,6 +14,12 @@ const config: Config = {
         foreground: "var(--foreground)",
         surface: "#1a1824",
         ink: "#13131a",
+        accent: {
+          DEFAULT: "var(--accent-bright)",
+          muted: "var(--accent)",
+          hover: "var(--accent-hover)",
+          deep: "var(--accent-deep)",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
@@ -25,7 +31,7 @@ const config: Config = {
       },
       boxShadow: {
         card: "0 12px 40px -12px rgba(0,0,0,0.65)",
-        "card-hover": "0 20px 50px -15px rgba(139,92,246,0.25)",
+        "card-hover": "0 20px 50px -15px rgba(124,58,237,0.22)",
       },
       keyframes: {
         "ad-shimmer": {

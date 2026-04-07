@@ -93,7 +93,7 @@ function RegisterForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-gradient-to-r from-rose-500 to-violet-600 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
+        className="w-full rounded-lg bg-accent py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover disabled:opacity-50"
       >
         {loading ? "…" : "Ro‘yxatdan o‘tish"}
       </button>

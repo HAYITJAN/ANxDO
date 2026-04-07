@@ -29,11 +29,11 @@ export function BrowseSearch({ initialQ }: { initialQ: string }) {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Film yoki serial qidirish..."
-        className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:border-fuchsia-500/50 focus:outline-none focus:ring-1 focus:ring-fuchsia-500/30"
+        className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-zinc-500 focus:border-violet-500/50 focus:outline-none focus:ring-1 focus:ring-violet-500/30"
       />
       <button
         type="submit"
-        className="rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white hover:brightness-110"
+        className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover"
       >
         Qidiruv
       </button>

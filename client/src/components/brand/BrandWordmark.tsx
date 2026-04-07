@@ -25,7 +25,7 @@ export function BrandWordmark({
       aria-label="ANDO"
     >
       <span>AN</span>
-      <span className="mx-0.5 font-semibold text-fuchsia-400" aria-hidden>
+      <span className="mx-0.5 font-semibold text-accent-hover" aria-hidden>
         ×
       </span>
       <span>DO</span>
@@ -41,7 +41,7 @@ export function BrandIcon({ className = "" }: { className?: string }) {
 
   return (
     <span
-      className={`relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-fuchsia-500 to-violet-600 shadow-lg shadow-fuchsia-900/40 sm:h-11 sm:w-11 ${className}`}
+      className={`relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-accent shadow-lg shadow-violet-950/45 ring-1 ring-violet-400/25 sm:h-11 sm:w-11 ${className}`}
       aria-hidden
     >
       <svg

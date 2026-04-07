@@ -115,7 +115,7 @@ export function NotificationBell() {
                   >
                     <span className="line-clamp-2 font-medium">{pickMovieTitle(m, locale)}</span>
                     {m.newRelease ? (
-                      <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-fuchsia-400/90">NEW</span>
+                      <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-violet-400/90">NEW</span>
                     ) : null}
                   </Link>
                 </li>

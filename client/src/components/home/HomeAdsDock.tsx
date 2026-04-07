@@ -30,7 +30,7 @@ function EntryAdModal({ ads, onClose }: { ads: AdItem[]; onClose: () => void }) 
       aria-modal="true"
       aria-label="Reklama"
     >
-      <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/80 ring-1 ring-fuchsia-500/20">
+      <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl shadow-black/80 ring-1 ring-violet-500/20">
         <button
           type="button"
           onClick={onClose}
@@ -68,7 +68,7 @@ function EntryAdModal({ ads, onClose }: { ads: AdItem[]; onClose: () => void }) 
 
 function PeriodicAdsStrip({ ads, onClose }: { ads: AdItem[]; onClose: () => void }) {
   return (
-    <div className="relative max-h-[42vh] border-b border-fuchsia-500/25 bg-[#0a0710]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.45)]">
+    <div className="relative max-h-[42vh] border-b border-violet-500/25 bg-[#0a0710]/98 shadow-[0_-8px_32px_rgba(0,0,0,0.45)]">
       <button
         type="button"
         onClick={onClose}
@@ -183,7 +183,7 @@ export function HomeAdsDock({ ads }: { ads: AdItem[] }) {
           <PeriodicAdsStrip ads={ads} onClose={() => setPeriodicOpen(false)} />
         ) : null}
 
-        <div className="border-t border-fuchsia-500/35 bg-[#06040a]/[0.97] pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-16px_48px_-10px_rgba(0,0,0,0.85)] backdrop-blur-xl">
+        <div className="border-t border-violet-500/35 bg-[#06040a]/[0.97] pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-16px_48px_-10px_rgba(0,0,0,0.85)] backdrop-blur-xl">
           <HomeAdPlaceholders placement="footer" docked />
         </div>
       </div>

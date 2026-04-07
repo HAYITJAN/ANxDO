@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-  /* Qat’iy #000 emas — fon biroz “ko‘tarilgan” qora / binafsha-sel */
-  --background: #13131a;
-  --foreground: #fafafa;
+  /* Fon — chuqur qora-binafsha; accent — tekis violet (gradiyentsiz UI uchun) */
+  --background: #121016;
+  --foreground: #f4f4f5;
+  --accent: #6d28d9;
+  --accent-bright: #7c3aed;
+  --accent-hover: #8b5cf6;
+  --accent-deep: #5b21b6;
   /** Kichik ekranlarda to‘liq kenglik; desktopda o‘ngda reklama uchun */
   --ad-slot-right: 0px;
 }

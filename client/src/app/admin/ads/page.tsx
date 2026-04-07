@@ -327,7 +327,7 @@ export default function AdminAdsPage() {
           <button
             type="submit"
             disabled={busy || uploading || !token}
-            className="rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2.5 text-sm font-semibold text-white disabled:opacity-50"
+            className="rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover disabled:opacity-50"
           >
             {busy ? "Saqlanmoqda…" : editingId ? "Yangilash" : "Qo‘shish"}
           </button>

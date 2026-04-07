@@ -23,7 +23,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <aside className="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/[0.06] bg-[#0c0a12]/95 backdrop-blur-xl">
         <div className="border-b border-white/[0.06] px-5 py-6">
           <Link href="/admin/dashboard" className="group flex items-center gap-2" aria-label="ANDO admin">
-            <BrandIcon className="from-rose-500 to-violet-600 shadow-violet-900/40" />
+            <BrandIcon className="!bg-accent-deep !shadow-violet-950/50 !ring-violet-400/25" />
             <div>
               <p className="text-sm text-white">
                 <BrandWordmark size="sm" />

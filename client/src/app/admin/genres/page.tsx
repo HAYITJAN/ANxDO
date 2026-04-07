@@ -97,7 +97,7 @@ export default function AdminGenresPage() {
         <button
           type="submit"
           disabled={busy || !token || !name.trim()}
-          className="rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-5 py-3 text-sm font-semibold text-white disabled:opacity-50"
+          className="rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover disabled:opacity-50"
         >
           Qo‘shish
         </button>

@@ -92,7 +92,7 @@ export default async function BrowsePage({
           <p className="mt-12 text-center text-zinc-500">Hech narsa topilmadi.</p>
         ) : null}
 
-        <Link href="/" className="mt-12 inline-block text-sm text-fuchsia-400 hover:underline">
+        <Link href="/" className="mt-12 inline-block text-sm text-violet-400 hover:underline">
           ← Bosh sahifa
         </Link>
       </div>

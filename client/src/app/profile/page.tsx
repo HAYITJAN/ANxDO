@@ -70,12 +70,12 @@ export default function ProfilePage() {
         <h2 className="text-lg font-semibold text-violet-100">{t("profile.myListTitle")}</h2>
 
         {!token ? (
-          <div className="mt-4 rounded-2xl border border-fuchsia-500/25 bg-fuchsia-950/20 px-5 py-6 text-sm text-violet-100/90">
+          <div className="mt-4 rounded-2xl border border-violet-500/25 bg-violet-950/20 px-5 py-6 text-sm text-violet-100/90">
             <p>{t("profile.myListLogin")}</p>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link
                 href="/register?next=%2Fprofile"
-                className="inline-flex rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg"
+                className="inline-flex rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/35 transition hover:bg-accent-hover"
               >
                 {t("profile.myListLoginCta")}
               </Link>

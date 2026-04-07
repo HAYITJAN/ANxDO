@@ -33,7 +33,7 @@ export function MoviePosterCard({ movie, showNewBadge, size = "row" }: Props) {
       href={`/title/${movie._id}`}
       aria-label={title}
       title={title}
-      className={`group relative z-0 isolate transform-gpu rounded-2xl bg-zinc-900 shadow-card ring-1 ring-white/[0.08] transition duration-300 ease-out hover:z-30 hover:scale-[1.07] hover:shadow-card-hover hover:ring-2 hover:ring-fuchsia-500/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500/50 focus-within:z-30 focus-within:scale-[1.07] ${wrap}`}
+      className={`group relative z-0 isolate transform-gpu rounded-2xl bg-zinc-900 shadow-card ring-1 ring-white/[0.08] transition duration-300 ease-out hover:z-30 hover:scale-[1.07] hover:shadow-card-hover hover:ring-2 hover:ring-violet-500/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500/50 focus-within:z-30 focus-within:scale-[1.07] ${wrap}`}
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl">
         {movie.posterUrl ? (
@@ -51,7 +51,7 @@ export function MoviePosterCard({ movie, showNewBadge, size = "row" }: Props) {
 
         {showNew ? (
           <span
-            className={`absolute right-2 top-2 z-20 rounded-md bg-gradient-to-r from-rose-600 to-red-600 font-bold uppercase tracking-wide text-white shadow-md ring-1 ring-white/25 ${
+            className={`absolute right-2 top-2 z-20 rounded-md bg-rose-600 font-bold uppercase tracking-wide text-white shadow-md ring-1 ring-white/25 ${
               size === "featured"
                 ? "px-2 py-0.5 text-[10px]"
                 : "px-1.5 py-0.5 text-[9px]"

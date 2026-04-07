@@ -1,6 +1,7 @@
 import { MoreLikeThis } from "@/components/title/MoreLikeThis";
 import { MovieDescriptionBlock } from "@/components/title/MovieDescriptionBlock";
 import { TitleDetailMeta } from "@/components/title/TitleDetailMeta";
+import { TitleMyListButton } from "@/components/title/TitleMyListButton";
 import { coerceGenres, fetchMovies } from "@/lib/movies";
 import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { pageShell } from "@/lib/pageShell";
@@ -103,7 +104,7 @@ export default async function TitlePage({
     return (
       <main className="min-h-screen bg-ink px-6 py-16 text-violet-100">
         <p className="text-zinc-400">{"Noto'g'ri havola."}</p>
-        <Link href="/" className="mt-4 inline-block text-sm text-fuchsia-400 hover:underline">
+        <Link href="/" className="mt-4 inline-block text-sm text-violet-400 hover:underline">
           ← Bosh sahifa
         </Link>
       </main>
@@ -123,7 +124,7 @@ export default async function TitlePage({
         <p className="mt-2 text-xs text-zinc-600">
           Server <code className="text-zinc-500">npm run dev</code> (port 5000) va MongoDB ni tekshiring.
         </p>
-        <Link href="/" className="mt-8 inline-block text-sm text-fuchsia-400 hover:underline">
+        <Link href="/" className="mt-8 inline-block text-sm text-violet-400 hover:underline">
           ← Bosh sahifa
         </Link>
       </main>
@@ -204,16 +205,11 @@ export default async function TitlePage({
               <div className="flex flex-wrap gap-3 pt-1">
                 <Link
                   href={`#watch`}
-                  className="inline-flex min-h-[46px] items-center gap-2 rounded-xl bg-gradient-to-r from-rose-500 via-fuchsia-600 to-violet-700 px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110"
+                  className="inline-flex min-h-[46px] items-center gap-2 rounded-xl bg-accent px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-950/35 transition hover:bg-accent-hover"
                 >
                   ▶ Tomosha qilish
                 </Link>
-                <button
-                  type="button"
-                  className="inline-flex min-h-[46px] items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-white hover:bg-white/10"
-                >
-                  + Mening ro‘yxatim
-                </button>
+                <TitleMyListButton movieId={movie._id} />
               </div>
             </div>
           </div>

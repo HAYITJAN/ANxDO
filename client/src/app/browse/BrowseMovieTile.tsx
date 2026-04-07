@@ -11,7 +11,7 @@ export function BrowseMovieTile({ movie }: { movie: MovieListItem }) {
 
   return (
     <Link href={`/title/${movie._id}`} className="group">
-      <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-zinc-800 ring-1 ring-white/10 transition group-hover:ring-fuchsia-500/50">
+      <div className="relative aspect-[2/3] overflow-hidden rounded-lg bg-zinc-800 ring-1 ring-white/10 transition group-hover:ring-violet-500/50">
         {movie.posterUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={movie.posterUrl} alt="" className="h-full w-full object-cover" />

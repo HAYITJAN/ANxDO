@@ -64,7 +64,7 @@ export function LanguageSwitcher() {
                   }}
                   className={`flex w-full items-center justify-between gap-3 px-3 py-2.5 text-left text-sm transition sm:py-2 ${
                     active
-                      ? "bg-white/[0.08] text-white"
+                      ? "bg-accent/25 text-white"
                       : "text-zinc-300 hover:bg-white/[0.06] hover:text-white"
                   }`}
                 >

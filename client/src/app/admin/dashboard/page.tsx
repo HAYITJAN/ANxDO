@@ -61,10 +61,10 @@ export default function AdminDashboardPage() {
   }
 
   const cards = [
-    { label: "Jami kinolar", value: data.totalMovies, accent: "from-violet-500/20 to-violet-600/5" },
-    { label: "Foydalanuvchilar", value: data.totalUsers, accent: "from-emerald-500/20 to-emerald-600/5" },
-    { label: "Epizodlar", value: data.totalEpisodes, accent: "from-amber-500/20 to-amber-600/5" },
-    { label: "Ko‘rishlar (jami)", value: data.totalViews.toLocaleString(), accent: "from-rose-500/20 to-rose-600/5" },
+    { label: "Jami kinolar", value: data.totalMovies, accent: "bg-violet-600/12" },
+    { label: "Foydalanuvchilar", value: data.totalUsers, accent: "bg-emerald-600/12" },
+    { label: "Epizodlar", value: data.totalEpisodes, accent: "bg-amber-600/12" },
+    { label: "Ko‘rishlar (jami)", value: data.totalViews.toLocaleString(), accent: "bg-rose-600/12" },
   ];
 
   return (
@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
         {cards.map((c) => (
           <div
             key={c.label}
-            className={`relative overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-br ${c.accent} p-5 shadow-lg shadow-black/20`}
+            className={`relative overflow-hidden rounded-2xl border border-white/[0.06] ${c.accent} p-5 shadow-lg shadow-black/20`}
           >
             <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">{c.label}</p>
             <p className="font-[family-name:var(--font-syne)] mt-2 text-3xl font-bold text-white">{c.value}</p>

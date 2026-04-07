@@ -28,7 +28,7 @@ function NavLink({
     >
       {children}
       {active ? (
-        <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500" />
+        <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent-hover" />
       ) : null}
     </Link>
   );
@@ -99,7 +99,7 @@ export function SiteHeader() {
               aria-expanded={menuOpen}
               aria-haspopup="true"
             >
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-700 via-fuchsia-800 to-purple-950 text-sm font-semibold text-white shadow-inner shadow-black/30 ring-1 ring-white/15 md:h-7 md:w-7">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-deep text-sm font-semibold text-white shadow-inner shadow-black/30 ring-1 ring-violet-400/20 md:h-7 md:w-7">
                 {token && user ? (
                   (user.name || user.email || "?").slice(0, 1).toUpperCase()
                 ) : (

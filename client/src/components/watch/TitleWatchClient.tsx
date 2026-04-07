@@ -263,7 +263,7 @@ export function TitleWatchClient({
             <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-center">
               <Link
                 href="/register"
-                className="rounded-xl bg-gradient-to-r from-rose-500 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white"
+                className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-violet-950/30 transition hover:bg-accent-hover"
               >
                 Ro‘yxatdan o‘tish
               </Link>
@@ -308,8 +308,8 @@ export function TitleWatchClient({
                   onClick={() => selectEpisode(ep)}
                   className={`relative flex min-h-[104px] w-[88px] shrink-0 flex-col overflow-hidden rounded-2xl ring-2 transition sm:min-h-[112px] sm:w-[96px] ${
                     active
-                      ? "bg-fuchsia-950/50 ring-fuchsia-500/70 shadow-lg shadow-fuchsia-950/30"
-                      : "bg-zinc-900/90 ring-white/10 hover:ring-fuchsia-500/40"
+                      ? "bg-violet-950/50 ring-violet-500/70 shadow-lg shadow-violet-950/30"
+                      : "bg-zinc-900/90 ring-white/10 hover:ring-violet-500/40"
                   }`}
                 >
                   <div className="relative flex flex-1 items-center justify-center bg-gradient-to-b from-zinc-800 to-zinc-950">
