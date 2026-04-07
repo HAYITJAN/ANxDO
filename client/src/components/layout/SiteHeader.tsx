@@ -67,39 +67,18 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-background/85 backdrop-blur-md">
       <div
-        className={`flex h-[3.25rem] items-center gap-1.5 sm:h-14 sm:gap-2 md:h-16 md:gap-3 ${pageShell}`}
+        className={`flex flex-wrap items-center gap-x-2 gap-y-2 py-2 sm:gap-x-3 md:h-16 md:flex-nowrap md:items-center md:gap-4 md:py-0 ${pageShell}`}
       >
         <Link
           href="/"
-          className="flex min-w-0 shrink-0 items-center gap-1.5 touch-manipulation sm:gap-2"
+          className="order-1 flex min-w-0 shrink-0 items-center gap-1.5 touch-manipulation sm:gap-2"
           aria-label="ANDO — bosh sahifa"
         >
           <BrandIcon />
           <BrandWordmark className="max-sm:scale-[0.92] max-sm:origin-left" />
         </Link>
 
-        <nav className="flex min-h-0 min-w-0 flex-1 items-center gap-x-3 overflow-x-auto overscroll-x-contain py-1 pl-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-x-4 sm:pl-2 md:gap-x-6 md:pl-3 lg:gap-x-7 [&::-webkit-scrollbar]:hidden">
-          <NavLink href="/" active={isHome}>
-            {t("nav.home")}
-          </NavLink>
-          <NavLink href="/browse?type=movie" active={isMovies}>
-            {t("nav.movies")}
-          </NavLink>
-          <NavLink href="/browse?type=anime" active={isAnime}>
-            {t("nav.anime")}
-          </NavLink>
-          <NavLink href="/browse?type=dorama" active={isDoramas}>
-            {t("nav.doramas")}
-          </NavLink>
-          <NavLink href="/browse?sort=trending" active={isTrending}>
-            {t("nav.trending")}
-          </NavLink>
-          <NavLink href="/profile" active={isMyList}>
-            {t("nav.myList")}
-          </NavLink>
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-1 sm:gap-1.5 md:gap-2">
+        <div className="order-2 ml-auto flex shrink-0 items-center gap-1 sm:gap-1.5 md:order-3 md:ml-0 md:gap-2">
           <LanguageSwitcher />
           <Link
             href="/browse"
@@ -181,6 +160,27 @@ export function SiteHeader() {
             ) : null}
           </div>
         </div>
+
+        <nav className="order-3 flex min-h-[44px] w-full min-w-0 basis-full items-center gap-x-4 overflow-x-auto overscroll-x-contain border-t border-white/[0.06] py-2 pl-0 [-ms-overflow-style:none] [scrollbar-width:none] md:order-2 md:min-h-0 md:w-auto md:basis-auto md:flex-1 md:gap-x-6 md:border-t-0 md:py-1 md:pl-2 lg:gap-x-7 xl:pl-3 [&::-webkit-scrollbar]:hidden">
+          <NavLink href="/" active={isHome}>
+            {t("nav.home")}
+          </NavLink>
+          <NavLink href="/browse?type=movie" active={isMovies}>
+            {t("nav.movies")}
+          </NavLink>
+          <NavLink href="/browse?type=anime" active={isAnime}>
+            {t("nav.anime")}
+          </NavLink>
+          <NavLink href="/browse?type=dorama" active={isDoramas}>
+            {t("nav.doramas")}
+          </NavLink>
+          <NavLink href="/browse?sort=trending" active={isTrending}>
+            {t("nav.trending")}
+          </NavLink>
+          <NavLink href="/profile" active={isMyList}>
+            {t("nav.myList")}
+          </NavLink>
+        </nav>
       </div>
     </header>
   );
