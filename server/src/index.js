@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('./config/loadDotenv');
 require('./config/dnsBootstrap');
 const path = require('path');
 const express = require('express');
@@ -7,6 +7,8 @@ const { connectDB } = require('./config/db');
 const { ensureDefaultAdmin } = require('./config/ensureDefaultAdmin');
 const { ensureDefaultGenres } = require('./config/ensureDefaultGenres');
 const { logAtlasHelp } = require('./config/atlasConnectionHelp');
+const { parseCorsOrigins } = require('./config/parseCorsOrigins');
+const { assertProductionEnv } = require('./config/assertEnv');
 
 const authRoutes = require('./routes/authRoutes');
 const movieRoutes = require('./routes/movieRoutes');
@@ -19,11 +21,12 @@ const adRoutes = require('./routes/adRoutes');
 const { bumpApiStats } = require('./middleware/bumpApiStats');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 
-const clientUrl = process.env.CLIENT_URL || 'http://localhost:3000';
-const adminClientUrl = process.env.ADMIN_CLIENT_URL || 'http://localhost:5173';
-const corsOrigins = [...new Set([clientUrl, adminClientUrl].filter(Boolean))];
+const corsOrigins = parseCorsOrigins();
+if (process.env.NODE_ENV !== 'production') {
+  console.log('[cors]', corsOrigins.join(', '));
+}
 
 app.use(
   cors({
@@ -56,11 +59,13 @@ app.use((err, req, res, next) => {
 });
 
 async function start() {
+  assertProductionEnv();
   await connectDB();
   await ensureDefaultAdmin();
   await ensureDefaultGenres();
-  app.listen(PORT, () => {
-    console.log(`API running on http://localhost:${PORT}`);
+  const host = process.env.LISTEN_HOST || '0.0.0.0';
+  app.listen(PORT, host, () => {
+    console.log(`API listening on ${host}:${PORT}`);
   });
 }
 

@@ -2,7 +2,7 @@
  * Seed sample movies and a default admin user.
  * Run: npm run seed (requires MONGODB_URI in .env)
  */
-require('dotenv').config();
+require('./config/loadDotenv');
 require('./config/dnsBootstrap');
 const { logAtlasHelp } = require('./config/atlasConnectionHelp');
 const bcrypt = require('bcryptjs');
