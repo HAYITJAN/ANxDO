@@ -1,0 +1,42 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.suo
+
+# Env va maxfiy
+.env
+.env.local
+.env.*.local
+server/.env
+client/.env.local
+admin-dashboard/.env
+admin-dashboard/.env.local
+
+# Node
+node_modules/
+**/node_modules/
+
+# Next.js
+client/.next/
+client/out/
+client/build/
+next-env.d.ts
+
+# Vite
+admin-dashboard/dist/
+
+# Server
+server/uploads/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Misc
+*.pem
+coverage/
+.turbo
