@@ -1,5 +1,6 @@
 import { MoreLikeThis } from "@/components/title/MoreLikeThis";
 import { MovieDescriptionBlock } from "@/components/title/MovieDescriptionBlock";
+import { TitleDetailMeta } from "@/components/title/TitleDetailMeta";
 import { coerceGenres, fetchMovies } from "@/lib/movies";
 import { publicApiBase as apiBase } from "@/lib/publicApiBase";
 import { pageShell } from "@/lib/pageShell";
@@ -21,6 +22,7 @@ const TitleWatchClient = dynamic(
 type MovieDetail = {
   _id: string;
   title?: string;
+  titleI18n?: { uz?: string; ru?: string; en?: string };
   description?: string;
   descriptionI18n?: { uz?: string; ru?: string; en?: string };
   type: string;
@@ -170,16 +172,14 @@ export default async function TitlePage({
                   />
                 ) : (
                   <div className="flex aspect-[2/3] items-center justify-center bg-zinc-800 p-4 text-center text-sm text-zinc-500">
-                    {movie.title}
+                    {movie.title ?? "Kontent"}
                   </div>
                 )}
               </div>
             </div>
 
             <div className="min-w-0 flex-1 space-y-5 pb-2">
-              <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
-                {movie.title ?? "Kontent"}
-              </h1>
+              <TitleDetailMeta movie={movie} />
 
               <div className="flex flex-wrap items-center gap-3 text-sm">
                 {movie.year ? (
@@ -194,19 +194,6 @@ export default async function TitlePage({
                   {typeLabel(movie.type ?? "movie")}
                 </span>
               </div>
-
-              {genres.length > 0 ? (
-                <div className="flex flex-wrap gap-2">
-                  {genres.map((g, i) => (
-                    <span
-                      key={`${g}-${i}`}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-zinc-300"
-                    >
-                      {g}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
 
               <MovieRatingPanel
                 movieId={movie._id}

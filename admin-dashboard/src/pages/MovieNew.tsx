@@ -10,7 +10,9 @@ type StreamRow = { part: number; lang: string; videoUrl: string; externalWatchUr
 type LoadedMovie = {
   _id: string;
   title: string;
+  titleI18n?: { uz?: string; ru?: string; en?: string };
   description?: string;
+  descriptionI18n?: { uz?: string; ru?: string; en?: string };
   genre?: string[];
   year?: number;
   posterUrl?: string;
@@ -54,6 +56,24 @@ export default function MovieNew() {
   ]);
   const [err, setErr] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  function readTitles(fd: FormData) {
+    const uz = ((fd.get("titleUz") as string) || "").trim();
+    const ru = ((fd.get("titleRu") as string) || "").trim();
+    const en = ((fd.get("titleEn") as string) || "").trim();
+    const title = uz || ru || en;
+    return { title, titleI18n: { uz, ru, en } };
+  }
+
+  function readDescriptions(fd: FormData) {
+    const uz = ((fd.get("descriptionUz") as string) || "").trim();
+    const ru = ((fd.get("descriptionRu") as string) || "").trim();
+    const en = ((fd.get("descriptionEn") as string) || "").trim();
+    return {
+      description: uz || ru || en || "",
+      descriptionI18n: { uz, ru, en },
+    };
+  }
 
   useEffect(() => {
     let c = false;
@@ -135,11 +155,12 @@ export default function MovieNew() {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
-    const title = (fd.get("title") as string).trim();
-    if (!title) {
-      setErr("Sarlavha kerak");
+    const titles = readTitles(fd);
+    if (!titles.title) {
+      setErr("Kamida bitta til uchun sarlavha kiriting");
       return;
     }
+    const { title, titleI18n } = titles;
     const type = fd.get("type") as "movie" | "anime" | "dorama";
 
     if (type === "movie") {
@@ -163,9 +184,12 @@ export default function MovieNew() {
         setErr("Kamida bitta til uchun saytdagi video yoki tashqi havola kiriting");
         return;
       }
+      const desc = readDescriptions(fd);
       const body = {
         title,
-        description: (fd.get("description") as string) || "",
+        titleI18n,
+        description: desc.description,
+        descriptionI18n: desc.descriptionI18n,
         genre: Array.from(selected),
         year: fd.get("year") ? Number(fd.get("year")) : undefined,
         posterUrl: (fd.get("posterUrl") as string) || "",
@@ -198,9 +222,12 @@ export default function MovieNew() {
     }
 
     if (isEdit && movieId) {
+      const desc = readDescriptions(fd);
       const movieBody = {
         title,
-        description: (fd.get("description") as string) || "",
+        titleI18n,
+        description: desc.description,
+        descriptionI18n: desc.descriptionI18n,
         genre: Array.from(selected),
         year: fd.get("year") ? Number(fd.get("year")) : undefined,
         posterUrl: (fd.get("posterUrl") as string) || "",
@@ -245,9 +272,12 @@ export default function MovieNew() {
       return;
     }
 
+    const desc = readDescriptions(fd);
     const movieBody = {
       title,
-      description: (fd.get("description") as string) || "",
+      titleI18n,
+      description: desc.description,
+      descriptionI18n: desc.descriptionI18n,
       genre: Array.from(selected),
       year: fd.get("year") ? Number(fd.get("year")) : undefined,
       posterUrl: (fd.get("posterUrl") as string) || "",
@@ -323,21 +353,60 @@ export default function MovieNew() {
         {err && (
           <p className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-2 text-sm text-rose-200">{err}</p>
         )}
+        <p className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 text-xs leading-relaxed text-zinc-500">
+          Saytda til almashishi uchun har tilga alohida sarlavha va tavsif kiriting. Agar RU/EN bo‘sh bo‘lsa, boshqa
+          tillarda ham o‘zbekcha matn ko‘rinadi.
+        </p>
         <label className="block">
-          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Sarlavha *</span>
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">
+            Sarlavha (UZ) *
+          </span>
           <input
-            name="title"
-            required
-            defaultValue={loaded?.title ?? ""}
+            name="titleUz"
+            defaultValue={loaded?.titleI18n?.uz ?? loaded?.title ?? ""}
             className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
           />
         </label>
         <label className="block">
-          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Tavsif</span>
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Sarlavha (RU)</span>
+          <input
+            name="titleRu"
+            defaultValue={loaded?.titleI18n?.ru ?? ""}
+            className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Sarlavha (EN)</span>
+          <input
+            name="titleEn"
+            defaultValue={loaded?.titleI18n?.en ?? ""}
+            className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Tavsif (UZ)</span>
           <textarea
-            name="description"
-            rows={4}
-            defaultValue={loaded?.description ?? ""}
+            name="descriptionUz"
+            rows={3}
+            defaultValue={loaded?.descriptionI18n?.uz ?? loaded?.description ?? ""}
+            className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Tavsif (RU)</span>
+          <textarea
+            name="descriptionRu"
+            rows={3}
+            defaultValue={loaded?.descriptionI18n?.ru ?? ""}
+            className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Tavsif (EN)</span>
+          <textarea
+            name="descriptionEn"
+            rows={3}
+            defaultValue={loaded?.descriptionI18n?.en ?? ""}
             className="w-full resize-none rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
           />
         </label>

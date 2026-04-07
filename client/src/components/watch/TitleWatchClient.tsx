@@ -8,6 +8,8 @@ import {
 } from "@/lib/guestMovieLimit";
 import { flagEmojiForLang, labelForLang } from "@/lib/audioLanguages";
 import { isIframeEmbedUrl, toEmbedUrl } from "@/lib/videoEmbed";
+import { useLocale } from "@/components/i18n/LocaleContext";
+import { pickMovieTitle } from "@/lib/movieDescription";
 import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -15,6 +17,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 export type TMovie = {
   _id: string;
   title?: string;
+  titleI18n?: { uz?: string; ru?: string; en?: string };
   description?: string;
   type: string;
   videoUrl?: string;
@@ -168,6 +171,8 @@ export function TitleWatchClient({
   movie: TMovie;
   episodes: TEpisode[];
 }) {
+  const { locale } = useLocale();
+  const displayTitle = pickMovieTitle(movie, locale);
   const { token, user } = useAuthStore();
   const isLoggedIn = !!(token && user);
 
@@ -212,7 +217,7 @@ export function TitleWatchClient({
       const progress = Math.min(92, (prev?.progress ?? 10) + (prev ? 12 : 8));
       const entry = {
         id: movie._id,
-        title: movie.title || "Kontent",
+        title: displayTitle || "Kontent",
         posterUrl: movie.posterUrl || "",
         progress,
         episodeCurrent:
@@ -224,7 +229,7 @@ export function TitleWatchClient({
     } catch {
       /* ignore */
     }
-  }, [blocked, movie._id, movie.title, movie.posterUrl, isSeries, selectedEp, episodes.length]);
+  }, [blocked, movie._id, displayTitle, movie.posterUrl, isSeries, selectedEp, episodes.length]);
 
   useEffect(() => {
     if (isLoggedIn) return;
@@ -368,9 +373,9 @@ export function TitleWatchClient({
           </p>
           <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:gap-4">
             <div className="min-w-0 flex-1">
-              <TrailerBlock url={filmTrailerUrl} title={movie.title ?? "Treyler"} />
+              <TrailerBlock url={filmTrailerUrl} title={displayTitle ?? "Treyler"} />
               <div className="mt-3 border-b border-white/[0.07] pb-4">
-                <h3 className="text-lg font-semibold leading-snug text-white">{movie.title ?? "Film"}</h3>
+                <h3 className="text-lg font-semibold leading-snug text-white">{displayTitle ?? "Film"}</h3>
                 <p className="mt-1 text-sm text-[#aaaaaa]">Treyler</p>
               </div>
             </div>

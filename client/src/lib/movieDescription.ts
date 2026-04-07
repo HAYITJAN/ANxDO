@@ -9,6 +9,15 @@ type DescriptionShape = {
   };
 };
 
+type TitleShape = {
+  title?: string;
+  titleI18n?: {
+    uz?: string;
+    ru?: string;
+    en?: string;
+  };
+};
+
 function clean(v: unknown): string {
   return typeof v === "string" ? v.trim() : "";
 }
@@ -18,4 +27,11 @@ export function pickMovieDescription(movie: DescriptionShape, locale: Locale): s
   const localized = clean(i18n[locale]);
   if (localized) return localized;
   return clean(movie.description);
+}
+
+export function pickMovieTitle(movie: TitleShape, locale: Locale): string {
+  const i18n = movie.titleI18n || {};
+  const localized = clean(i18n[locale]);
+  if (localized) return localized;
+  return clean(movie.title);
 }

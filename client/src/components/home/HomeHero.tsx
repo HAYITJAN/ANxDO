@@ -1,7 +1,8 @@
 "use client";
 
 import { useLocale } from "@/components/i18n/LocaleContext";
-import { pickMovieDescription } from "@/lib/movieDescription";
+import { genreLabelForLocale } from "@/lib/genreLabels";
+import { pickMovieDescription, pickMovieTitle } from "@/lib/movieDescription";
 import type { MovieListItem } from "@/lib/movies";
 import { pageShell } from "@/lib/pageShell";
 import { isInWatchlist, toggleWatchlist } from "@/lib/watchlist";
@@ -68,6 +69,7 @@ export function HomeHero({
   }
 
   const description = pickMovieDescription(movie, locale);
+  const displayTitle = pickMovieTitle(movie, locale);
 
   return (
     <section className="relative w-full overflow-hidden bg-black">
@@ -136,7 +138,7 @@ export function HomeHero({
           </div>
 
           <h1 className="mt-5 text-5xl font-bold leading-[1.02] tracking-tight text-white drop-shadow-[0_4px_32px_rgba(0,0,0,0.65)] sm:text-6xl md:text-7xl lg:text-8xl lg:leading-[1.02]">
-            {movie.title}
+            {displayTitle}
           </h1>
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -153,7 +155,7 @@ export function HomeHero({
                 key={g}
                 className="rounded-lg border border-white/10 bg-black/40 px-3 py-1.5 text-xs font-medium text-zinc-200 backdrop-blur-md"
               >
-                {g}
+                {genreLabelForLocale(g, locale)}
               </span>
             ))}
           </div>

@@ -14,6 +14,7 @@ export function coerceGenres(genre: unknown): string[] {
 export type MovieListItem = {
   _id: string;
   title: string;
+  titleI18n?: { uz?: string; ru?: string; en?: string };
   description?: string;
   descriptionI18n?: { uz?: string; ru?: string; en?: string };
   genre?: string[];

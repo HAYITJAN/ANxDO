@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 const movieSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
+    titleI18n: {
+      uz: { type: String, default: '' },
+      ru: { type: String, default: '' },
+      en: { type: String, default: '' },
+    },
     description: { type: String, default: '' },
     descriptionI18n: {
       uz: { type: String, default: '' },
@@ -44,6 +49,9 @@ const movieSchema = new mongoose.Schema(
 
 movieSchema.index({
   title: 'text',
+  'titleI18n.uz': 'text',
+  'titleI18n.ru': 'text',
+  'titleI18n.en': 'text',
   description: 'text',
   'descriptionI18n.uz': 'text',
   'descriptionI18n.ru': 'text',

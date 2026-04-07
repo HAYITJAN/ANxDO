@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { useLocale } from "@/components/i18n/LocaleContext";
+import { genreLabelForLocale } from "@/lib/genreLabels";
+import { pickMovieTitle } from "@/lib/movieDescription";
 import { coerceGenres, type MovieListItem } from "@/lib/movies";
 
 type Props = {
@@ -13,8 +18,9 @@ type Props = {
  * Poster: nom pastda emas, faqat sichqoncha/banner ustida hover qilganda overlay.
  */
 export function MoviePosterCard({ movie, showNewBadge, size = "row" }: Props) {
+  const { locale } = useLocale();
   const genres = coerceGenres(movie.genre).slice(0, 2);
-  const title = movie.title?.trim() || "Kontent";
+  const title = pickMovieTitle(movie, locale) || "Kontent";
   const showNew = Boolean(showNewBadge && movie.newRelease);
 
   const wrap =
@@ -107,7 +113,7 @@ export function MoviePosterCard({ movie, showNewBadge, size = "row" }: Props) {
                       size === "featured" ? "text-[9px] sm:text-[10px]" : "text-[8px] sm:text-[9px]"
                     }`}
                   >
-                    {g}
+                    {genreLabelForLocale(g, locale)}
                   </span>
                 ))}
               </div>

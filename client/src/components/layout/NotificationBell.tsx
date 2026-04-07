@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/components/i18n/LocaleContext";
+import { pickMovieTitle } from "@/lib/movieDescription";
 import { getLastNotificationsViewedAt, hasUnreadNewReleases, markNotificationsViewed } from "@/lib/notifications";
 import type { MovieListItem } from "@/lib/movies";
 import { publicApiBase as apiBase } from "@/lib/publicApiBase";
@@ -9,7 +10,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export function NotificationBell() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const token = useAuthStore((s) => s.token);
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<MovieListItem[]>([]);
@@ -112,7 +113,7 @@ export function NotificationBell() {
                     className="block px-3 py-2.5 text-sm text-violet-100 hover:bg-white/[0.06]"
                     onClick={() => setOpen(false)}
                   >
-                    <span className="line-clamp-2 font-medium">{m.title}</span>
+                    <span className="line-clamp-2 font-medium">{pickMovieTitle(m, locale)}</span>
                     {m.newRelease ? (
                       <span className="mt-0.5 block text-[10px] uppercase tracking-wide text-fuchsia-400/90">NEW</span>
                     ) : null}

@@ -14,6 +14,7 @@ type StreamRow = { part: number; lang: string; videoUrl: string; externalWatchUr
 type LoadedMovie = {
   _id: string;
   title: string;
+  titleI18n?: { uz?: string; ru?: string; en?: string };
   description?: string;
   descriptionI18n?: { uz?: string; ru?: string; en?: string };
   genre?: string[];
@@ -63,6 +64,14 @@ export function MovieForm({ movieId }: { movieId?: string }) {
   const [shortEditUrl, setShortEditUrl] = useState("");
   const [shortUploading, setShortUploading] = useState(false);
   const shortFileRef = useRef<HTMLInputElement>(null);
+
+  function readTitles(fd: FormData) {
+    const uz = ((fd.get("titleUz") as string) || "").trim();
+    const ru = ((fd.get("titleRu") as string) || "").trim();
+    const en = ((fd.get("titleEn") as string) || "").trim();
+    const title = uz || ru || en;
+    return { title, titleI18n: { uz, ru, en } };
+  }
 
   function readDescriptions(fd: FormData) {
     const uz = ((fd.get("descriptionUz") as string) || "").trim();
@@ -165,11 +174,12 @@ export function MovieForm({ movieId }: { movieId?: string }) {
     const fd = new FormData(form);
     const genre = Array.from(selected);
 
-    const title = (fd.get("title") as string).trim();
-    if (!title) {
-      setError("Sarlavha majburiy");
+    const titles = readTitles(fd);
+    if (!titles.title) {
+      setError("Kamida bitta til uchun sarlavha kiriting (masalan O‘zbekcha).");
       return;
     }
+    const { title, titleI18n } = titles;
 
     const type = fd.get("type") as "movie" | "anime" | "dorama";
     const trailerShortUrl = shortEditUrl.trim();
@@ -198,6 +208,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
       const desc = readDescriptions(fd);
       const body = {
         title,
+        titleI18n,
         description: desc.description,
         descriptionI18n: desc.descriptionI18n,
         genre,
@@ -239,6 +250,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
       const desc = readDescriptions(fd);
       const movieBody = {
         title,
+        titleI18n,
         description: desc.description,
         descriptionI18n: desc.descriptionI18n,
         genre,
@@ -293,6 +305,7 @@ export function MovieForm({ movieId }: { movieId?: string }) {
     const desc = readDescriptions(fd);
     const movieBody = {
       title,
+      titleI18n,
       description: desc.description,
       descriptionI18n: desc.descriptionI18n,
       genre,
@@ -383,16 +396,38 @@ export function MovieForm({ movieId }: { movieId?: string }) {
           </p>
         )}
 
+        <p className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-3 text-xs leading-relaxed text-zinc-500">
+          Saytda til almashganda sarlavha va tavsif ham almashadi. Faqat bitta tilni to‘ldirsangiz, boshqa tillarda ham
+          shu matn chiqadi — har til uchun alohida yozing.
+        </p>
+
         <label className="block">
           <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">
-            Sarlavha *
+            Sarlavha (UZ) *
           </span>
           <input
-            name="title"
-            required
-            defaultValue={loaded?.title ?? ""}
+            name="titleUz"
+            defaultValue={loaded?.titleI18n?.uz ?? loaded?.title ?? ""}
             className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
-            placeholder="Masalan: Neon Blade"
+            placeholder="Masalan: One Piece"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Sarlavha (RU)</span>
+          <input
+            name="titleRu"
+            defaultValue={loaded?.titleI18n?.ru ?? ""}
+            className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
+            placeholder="Например: Ван-Пис"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-zinc-500">Sarlavha (EN)</span>
+          <input
+            name="titleEn"
+            defaultValue={loaded?.titleI18n?.en ?? ""}
+            className="w-full rounded-xl border border-white/[0.08] bg-[#0c0a12] px-4 py-3 text-sm text-white outline-none ring-violet-500/30 placeholder:text-zinc-600 focus:ring-2"
+            placeholder="e.g. One Piece"
           />
         </label>
 

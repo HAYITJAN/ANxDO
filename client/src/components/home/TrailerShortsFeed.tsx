@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "@/components/i18n/LocaleContext";
+import { pickMovieTitle } from "@/lib/movieDescription";
 import type { MovieListItem } from "@/lib/movies";
 import { isIframeEmbedUrl, toEmbedUrl } from "@/lib/videoEmbed";
 import Link from "next/link";
@@ -74,7 +75,7 @@ function ShortVideo({
 }
 
 export function TrailerShortsFeed({ movies }: { movies: MovieListItem[] }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const withShorts = movies.filter((m) => m.trailerShortUrl?.trim());
   const [activeId, setActiveId] = useState<string | null>(withShorts[0]?._id ?? null);
   const slideRefs = useRef<Map<string, HTMLDivElement>>(new Map());
@@ -152,7 +153,7 @@ export function TrailerShortsFeed({ movies }: { movies: MovieListItem[] }) {
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black via-black/70 to-transparent" />
                   <div className="absolute inset-x-0 bottom-0 z-10 p-4 pt-16">
                     <p className="line-clamp-2 text-lg font-bold leading-tight text-white drop-shadow-md sm:text-xl">
-                      {m.title}
+                      {pickMovieTitle(m, locale)}
                     </p>
                     {m.year ? (
                       <p className="mt-1 text-xs font-medium text-zinc-400">{m.year}</p>
