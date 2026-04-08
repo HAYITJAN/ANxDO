@@ -16,6 +16,26 @@ type AdItem = {
   placement?: string;
 };
 
+type AdPlacementKey = "overlay" | "bottom" | "sidebar";
+
+const PLACEMENT_OPTIONS: { value: AdPlacementKey; label: string; hint: string }[] = [
+  { value: "overlay", label: "Ekranda", hint: "Kirish modal + davriy chiziq" },
+  { value: "bottom", label: "Ekran ostida", hint: "Pastki doimiy banner" },
+  { value: "sidebar", label: "O‘ng tomonda", hint: "Desktop vertikal 150px" },
+];
+
+function formPlacementFromAd(p?: string): AdPlacementKey {
+  if (p === "sidebar" || p === "bottom") return p;
+  return "overlay";
+}
+
+function placementLabel(p?: string) {
+  if (p === "sidebar") return "O‘ng";
+  if (p === "bottom") return "Pastki";
+  if (p === "home" || p === "overlay") return "Ekranda";
+  return p || "Ekranda";
+}
+
 const emptyForm = {
   title: "",
   body: "",
@@ -25,7 +45,7 @@ const emptyForm = {
   linkUrl: "",
   active: true,
   sortOrder: 0,
-  placement: "home",
+  placement: "overlay" as AdPlacementKey,
 };
 
 export default function Ads() {
@@ -61,7 +81,7 @@ export default function Ads() {
       linkUrl: ad.linkUrl ?? "",
       active: ad.active !== false,
       sortOrder: typeof ad.sortOrder === "number" ? ad.sortOrder : 0,
-      placement: ad.placement ?? "home",
+      placement: formPlacementFromAd(ad.placement),
     });
     setErr(null);
   }
@@ -114,7 +134,7 @@ export default function Ads() {
         linkUrl: form.linkUrl.trim(),
         active: form.active,
         sortOrder: Number(form.sortOrder) || 0,
-        placement: form.placement.trim() || "home",
+        placement: form.placement,
       };
       const url = editingId ? `/ads/${editingId}` : "/ads";
       const method = editingId ? "PUT" : "POST";
@@ -272,12 +292,20 @@ export default function Ads() {
           </label>
           <label className="block sm:col-span-2">
             <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-zinc-500">Joylashuv</span>
-            <input
+            <select
               value={form.placement}
-              onChange={(e) => setForm((f) => ({ ...f, placement: e.target.value }))}
+              onChange={(e) => setForm((f) => ({ ...f, placement: e.target.value as AdPlacementKey }))}
               className="w-full rounded-xl border border-white/[0.08] bg-[#07060b] px-4 py-2.5 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
-              placeholder="home"
-            />
+            >
+              {PLACEMENT_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
+            <span className="mt-1 block text-[11px] text-zinc-600">
+              {PLACEMENT_OPTIONS.find((o) => o.value === form.placement)?.hint}
+            </span>
           </label>
           <label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-300">
             <input
@@ -315,7 +343,7 @@ export default function Ads() {
             <div className="min-w-0">
               <p className="truncate text-sm font-medium text-white">{ad.title || "(sarlavhasiz)"}</p>
               <p className="mt-1 text-xs text-zinc-500">
-                {ad.mediaType} · {ad.placement || "home"} · {ad.active !== false ? "faol" : "o‘chiq"}
+                {ad.mediaType} · {placementLabel(ad.placement)} · {ad.active !== false ? "faol" : "o‘chiq"}
               </p>
             </div>
             <div className="flex gap-2">

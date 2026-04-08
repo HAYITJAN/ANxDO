@@ -23,6 +23,8 @@ function sendUploadedUrl(req, res) {
   res.status(201).json({ url });
 }
 
+const PLACEMENT_ALLOWED = new Set(['sidebar', 'bottom', 'overlay', 'home']);
+
 function normalizeAdBody(body) {
   const title = String(body?.title ?? '').trim();
   const text = String(body?.body ?? '').trim();
@@ -32,7 +34,10 @@ function normalizeAdBody(body) {
   const linkUrl = String(body?.linkUrl ?? '').trim();
   const active = body?.active !== false;
   const sortOrder = Number.isFinite(Number(body?.sortOrder)) ? Number(body.sortOrder) : 0;
-  const placement = String(body?.placement ?? 'home').trim() || 'home';
+  let placement = String(body?.placement ?? 'overlay').trim() || 'overlay';
+  if (!PLACEMENT_ALLOWED.has(placement)) placement = 'overlay';
+  /** Eski yozuvlar: home → overlay */
+  if (placement === 'home') placement = 'overlay';
 
   if (mediaType === 'image' && !imageUrl) {
     return { error: 'Rasm URL i majburiy' };
@@ -61,7 +66,11 @@ router.get('/', async (req, res) => {
   try {
     const placement = req.query.placement ? String(req.query.placement).trim() : '';
     const q = { active: true };
-    if (placement) q.placement = placement;
+    if (placement === 'overlay') {
+      q.$or = [{ placement: 'overlay' }, { placement: 'home' }];
+    } else if (placement) {
+      q.placement = placement;
+    }
     const ads = await Ad.find(q).sort({ sortOrder: 1, createdAt: -1 }).lean();
     res.json(ads);
   } catch (err) {

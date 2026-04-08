@@ -3,7 +3,7 @@ import { HomeEmptyState } from "@/components/home/HomeEmptyState";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomeMovieSections } from "@/components/home/HomeMovieSections";
 import { TrailerShortsFeed } from "@/components/home/TrailerShortsFeed";
-import { fetchAds } from "@/lib/ads";
+import { AD_PLACEMENT_BOTTOM, AD_PLACEMENT_OVERLAY, fetchAds } from "@/lib/ads";
 import { fetchGenres } from "@/lib/genres";
 import { pageShell } from "@/lib/pageShell";
 import { fetchMovies, pickHeroMovies } from "@/lib/movies";
@@ -12,7 +12,12 @@ import { fetchMovies, pickHeroMovies } from "@/lib/movies";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [movies, ads, genres] = await Promise.all([fetchMovies(), fetchAds("home"), fetchGenres()]);
+  const [movies, overlayAds, bottomAds, genres] = await Promise.all([
+    fetchMovies(),
+    fetchAds(AD_PLACEMENT_OVERLAY),
+    fetchAds(AD_PLACEMENT_BOTTOM),
+    fetchGenres(),
+  ]);
   const heroMovies = pickHeroMovies(movies);
 
   const trending = [...movies].sort((a, b) => (b.views ?? 0) - (a.views ?? 0)).slice(0, 12);
@@ -45,7 +50,7 @@ export default async function Home() {
         <HomeEmptyState />
       )}
 
-      <HomeAdsDock ads={ads} />
+      <HomeAdsDock overlayAds={overlayAds} bottomAds={bottomAds} />
     </div>
   );
 }

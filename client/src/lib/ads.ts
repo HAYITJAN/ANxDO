@@ -18,7 +18,12 @@ export type AdItem = {
   placement?: string;
 };
 
-export async function fetchAds(placement = "home"): Promise<AdItem[]> {
+/** Modal + davriy pastki chiziq (eski DB: home) */
+export const AD_PLACEMENT_OVERLAY = "overlay";
+/** Doimiy pastki bar (haqiqiy banner) */
+export const AD_PLACEMENT_BOTTOM = "bottom";
+
+export async function fetchAds(placement = "overlay"): Promise<AdItem[]> {
   try {
     const q = placement ? `?placement=${encodeURIComponent(placement)}` : "";
     const res = await fetch(`${apiBase}/ads${q}`, { next: { revalidate: 60 } });

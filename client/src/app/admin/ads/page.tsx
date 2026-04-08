@@ -6,6 +6,30 @@ import { uploadAdMedia } from "@/lib/uploadAdMedia";
 import { useAuthStore } from "@/store/authStore";
 import { useCallback, useEffect, useState } from "react";
 
+type AdPlacementKey = "overlay" | "bottom" | "sidebar";
+
+const PLACEMENT_OPTIONS: { value: AdPlacementKey; label: string; hint: string }[] = [
+  {
+    value: "overlay",
+    label: "Ekranda",
+    hint: "Birinchi kirishda modal + har 5 daqiqada yuqoriga chiziq",
+  },
+  { value: "bottom", label: "Ekran ostida", hint: "Pastki doimiy joyda banner" },
+  { value: "sidebar", label: "O‘ng tomonda", hint: "Katta ekran: o‘ng 150px vertikal panel" },
+];
+
+function formPlacementFromAd(p?: string): AdPlacementKey {
+  if (p === "sidebar" || p === "bottom") return p;
+  return "overlay";
+}
+
+function placementLabel(p?: string) {
+  if (p === "sidebar") return "O‘ng panel";
+  if (p === "bottom") return "Ekran osti";
+  if (p === "home" || p === "overlay") return "Ekranda";
+  return p || "Ekranda";
+}
+
 const emptyForm = {
   title: "",
   body: "",
@@ -15,7 +39,7 @@ const emptyForm = {
   linkUrl: "",
   active: true,
   sortOrder: 0,
-  placement: "home",
+  placement: "overlay" as AdPlacementKey,
 };
 
 export default function AdminAdsPage() {
@@ -59,7 +83,7 @@ export default function AdminAdsPage() {
       linkUrl: ad.linkUrl ?? "",
       active: ad.active !== false,
       sortOrder: typeof ad.sortOrder === "number" ? ad.sortOrder : 0,
-      placement: ad.placement ?? "home",
+      placement: formPlacementFromAd(ad.placement),
     });
     setErr(null);
   }
@@ -113,7 +137,7 @@ export default function AdminAdsPage() {
         linkUrl: form.linkUrl.trim(),
         active: form.active,
         sortOrder: Number(form.sortOrder) || 0,
-        placement: form.placement.trim() || "home",
+        placement: form.placement,
       };
       const url = editingId ? `/ads/${editingId}` : "/ads";
       const method = editingId ? "PUT" : "POST";
@@ -162,9 +186,8 @@ export default function AdminAdsPage() {
         Reklama
       </h2>
       <p className="mb-6 text-sm text-zinc-500">
-        Rasm yoki videoni kompyuterdan yuklang yoki havola qo‘ying. Matn va ixtiyoriy tashqi havola. Faqat{" "}
-        <strong>faol</strong> reklamalar bosh sahifada (placement:{" "}
-        <code className="text-zinc-400">home</code>) ko‘rinadi.
+        Rasm yoki videoni yuklang yoki URL kiriting. <strong>Faol</strong> reklama tanlangan joylashuvda chiqadi:
+        ekranda (modal), pastki panel yoki o‘ng vertikal joy.
       </p>
 
       {err && (
@@ -301,16 +324,22 @@ export default function AdminAdsPage() {
             />
           </label>
           <label className="block sm:col-span-2">
-            <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-zinc-500">Joylashuv</span>
-            <input
+            <span className="mb-1 block text-xs font-medium uppercase tracking-wide text-zinc-500">Qayerda chiqariladi</span>
+            <select
               value={form.placement}
-              onChange={(e) => setForm((f) => ({ ...f, placement: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, placement: e.target.value as AdPlacementKey }))
+              }
               className="w-full rounded-xl border border-white/[0.08] bg-[#07060b] px-4 py-2.5 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/40"
-              placeholder="home yoki sidebar"
-            />
+            >
+              {PLACEMENT_OPTIONS.map((o) => (
+                <option key={o.value} value={o.value}>
+                  {o.label}
+                </option>
+              ))}
+            </select>
             <span className="mt-1 block text-[11px] text-zinc-600">
-              <code className="text-zinc-400">home</code> — bosh sahifa modali / lenta;{" "}
-              <code className="text-zinc-400">sidebar</code> — o‘ng 150px vertikal panel (faqat katta ekran).
+              {PLACEMENT_OPTIONS.find((o) => o.value === form.placement)?.hint}
             </span>
           </label>
           <label className="flex cursor-pointer items-center gap-2 text-sm text-zinc-300">
@@ -354,7 +383,7 @@ export default function AdminAdsPage() {
               <p className="truncate text-sm font-medium text-white">{ad.title || "(sarlavhasiz)"}</p>
               <p className="mt-1 text-xs text-zinc-500">
                 {ad.mediaType === "image" ? "Rasm" : "Video"} · tartib {ad.sortOrder ?? 0} ·{" "}
-                {ad.placement || "home"} · {ad.active !== false ? "faol" : "o‘chirilgan"}
+                {placementLabel(ad.placement)} · {ad.active !== false ? "faol" : "o‘chirilgan"}
               </p>
             </div>
             <div className="flex shrink-0 gap-2">

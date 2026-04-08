@@ -15,8 +15,8 @@ const adSchema = new mongoose.Schema(
     active: { type: Boolean, default: true },
     /** Ko‘rinish tartibi (kichik = yuqorida) */
     sortOrder: { type: Number, default: 0 },
-    /** Masalan: home — bosh sahifa banner qatori */
-    placement: { type: String, default: 'home', trim: true },
+    /** sidebar | bottom | overlay (eski: home — API overlay so‘rovida qo‘llanadi) */
+    placement: { type: String, default: 'overlay', trim: true },
   },
   { timestamps: true }
 );

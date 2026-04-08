@@ -2,6 +2,7 @@
 
 import type { AdItem } from "@/lib/ads";
 import { AdMedia } from "@/components/home/AdMedia";
+import { HomeAdsSection } from "@/components/home/HomeAdsSection";
 import { HomeAdPlaceholders } from "@/components/home/HomeAdPlaceholders";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
@@ -112,9 +113,16 @@ function PeriodicAdsStrip({ ads, onClose }: { ads: AdItem[]; onClose: () => void
 }
 
 /**
- * Pastdoim: doim placeholder lentasi; reklamalar kirishda modal va har N daqiqada pastki lenta.
+ * overlayAds — kirish modal + davriy pastki chiziq (admin: joylashuv «Ekranda»).
+ * bottomAds — doimiy pastki qator (admin: «Ekran ostida»); bo‘sh bo‘lsa placeholder.
  */
-export function HomeAdsDock({ ads }: { ads: AdItem[] }) {
+export function HomeAdsDock({
+  overlayAds,
+  bottomAds,
+}: {
+  overlayAds: AdItem[];
+  bottomAds: AdItem[];
+}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [entryOpen, setEntryOpen] = useState(false);
   const [periodicOpen, setPeriodicOpen] = useState(false);
@@ -148,19 +156,19 @@ export function HomeAdsDock({ ads }: { ads: AdItem[] }) {
   }, [periodicOpen, publishHeight]);
 
   useEffect(() => {
-    if (!ads.length) return;
+    if (!overlayAds.length) return;
     try {
       if (!sessionStorage.getItem(ENTRY_SESSION_KEY)) setEntryOpen(true);
     } catch {
       setEntryOpen(true);
     }
-  }, [ads.length]);
+  }, [overlayAds.length]);
 
   useEffect(() => {
-    if (!ads.length) return;
+    if (!overlayAds.length) return;
     const t = setInterval(() => setPeriodicOpen(true), PERIODIC_INTERVAL_MS);
     return () => clearInterval(t);
-  }, [ads.length]);
+  }, [overlayAds.length]);
 
   const dismissEntry = useCallback(() => {
     setEntryOpen(false);
@@ -173,18 +181,24 @@ export function HomeAdsDock({ ads }: { ads: AdItem[] }) {
 
   return (
     <>
-      {entryOpen && ads.length > 0 ? <EntryAdModal ads={ads} onClose={dismissEntry} /> : null}
+      {entryOpen && overlayAds.length > 0 ? (
+        <EntryAdModal ads={overlayAds} onClose={dismissEntry} />
+      ) : null}
 
       <div
         ref={rootRef}
         className="fixed bottom-0 left-0 right-0 z-40 flex max-w-[100vw] flex-col overflow-x-hidden"
       >
-        {periodicOpen && ads.length > 0 ? (
-          <PeriodicAdsStrip ads={ads} onClose={() => setPeriodicOpen(false)} />
+        {periodicOpen && overlayAds.length > 0 ? (
+          <PeriodicAdsStrip ads={overlayAds} onClose={() => setPeriodicOpen(false)} />
         ) : null}
 
         <div className="border-t border-violet-500/35 bg-[#06040a]/[0.97] pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-16px_48px_-10px_rgba(0,0,0,0.85)] backdrop-blur-xl">
-          <HomeAdPlaceholders placement="footer" docked />
+          {bottomAds.length > 0 ? (
+            <HomeAdsSection ads={bottomAds} placement="footer" docked />
+          ) : (
+            <HomeAdPlaceholders placement="footer" docked />
+          )}
         </div>
       </div>
     </>
